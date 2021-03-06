@@ -46,7 +46,7 @@ I/flutter ( 4939): cannot exceed the remainingPaintExtent.
 I/flutter ( 4939):
 ```
 
-## Issue 2: MultiSliver changes in 0.1.10 do not work with `SliverFillRemainingCustomWidget`
+## Issue 2: MultiSliver changes in 0.1.10 do not work with SliverFillRemainingCustomWidget
 
 We have a custom widget: `SliverFillRemainingCustomWidget`. This widget is supposed to fill up the remaining space in the body in case there is not enough content (in our case: list items) to fill up the remaining space.
 
