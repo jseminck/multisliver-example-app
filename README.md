@@ -2,6 +2,10 @@
 
 This is an example application to demonstrate two issues that we currently are experiencing with the MultiSliver component from `sliver_tools`.
 
+## How to run
+
+Make sure an emulator is up and running, then just execute `flutter run` in the source code main directory.
+
 ## Functionality
 
 The way we use it in our app is that we have a sliver list in the body of the application, and it is possible to drag it to the top of the screen. The header then collapses (and normally animates to a different layout).
