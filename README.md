@@ -10,7 +10,7 @@ Make sure an emulator is up and running, then just execute `flutter run` in the 
 
 The way we use it in our app is that we have a sliver list in the body of the application, and it is possible to drag it to the top of the screen. The header then collapses (and normally animates to a different layout).
 
-![demo](readme/multi-sliver-example-app-usage?raw=true "demo")
+![demo](readme/multi-sliver-example-app-usage.gif?raw=true "demo")
 
 ## Issue 1: Floating Point rounding error
 
@@ -18,7 +18,7 @@ The first issue is after adding a `CupertinoSliverRefreshControl` to provide "sw
 
 In the example app the issue does not happen every time but it eventually always does happen.
 
-![floating-point](readme/multi-sliver-floating-point-rounding-error?raw=true "floating-point")
+![floating-point](readme/multi-sliver-floating-point-rounding-error.gif?raw=true "floating-point")
 
 ```
 I/flutter ( 4939): ══╡ EXCEPTION CAUGHT BY RENDERING LIBRARY ╞═════════════════════════════════════════════════════════
@@ -52,4 +52,4 @@ We have a custom widget: `SliverFillRemainingCustomWidget`. This widget is suppo
 
 This component works perfectly well with version 0.1.9 but no longer works with 0.1.10. In the example app it is possible to just switch the version to 0.1.10 and then the functionality that we want to achieve no longer works.
 
-![version-upgrade](readme/multi-sliver-version-upgrade-issue?raw=true "version-upgrade")
+![version-upgrade](readme/multi-sliver-version-upgrade-issue.png?raw=true "version-upgrade")
