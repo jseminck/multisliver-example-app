@@ -4,26 +4,31 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 
 class SliverFillRemainingCustomWidget extends StatelessWidget {
+  final GlobalKey sliverListKey;
   final Widget child;
   final double offset;
 
-  const SliverFillRemainingCustomWidget({Key key, this.offset = 0.0, this.child}) : super(key: key);
+  const SliverFillRemainingCustomWidget(
+      {Key key, @required this.sliverListKey, this.offset = 0.0, this.child})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return _SliverFillRemainingAndOverscroll(offset: offset, child: child);
+    return _SliverFillRemainingAndOverscroll(
+        offset: offset, sliverListKey: sliverListKey, child: child);
   }
 }
 
 class _SliverFillRemainingAndOverscroll extends SingleChildRenderObjectWidget {
+  final GlobalKey sliverListKey;
   final double offset;
 
-  const _SliverFillRemainingAndOverscroll({Key key, this.offset, Widget child})
+  const _SliverFillRemainingAndOverscroll({Key key, this.sliverListKey, this.offset, Widget child})
       : super(key: key, child: child);
 
   @override
   _RenderSliverFillRemainingAndOverscroll createRenderObject(BuildContext context) =>
-      _RenderSliverFillRemainingAndOverscroll(offset: offset);
+      _RenderSliverFillRemainingAndOverscroll(offset: offset, sliverListKey: sliverListKey);
 }
 
 class _RenderSliverFillRemainingAndOverscroll extends RenderSliverSingleBoxAdapter {
@@ -32,18 +37,24 @@ class _RenderSliverFillRemainingAndOverscroll extends RenderSliverSingleBoxAdapt
 
   // Offset is subtracted from the extent to be filled (appbar height, paddings etc)
   final double offset;
+  final GlobalKey sliverListKey;
 
-  _RenderSliverFillRemainingAndOverscroll({this.offset, RenderBox child}) : super(child: child);
+  _RenderSliverFillRemainingAndOverscroll({this.offset, this.sliverListKey, RenderBox child})
+      : super(child: child);
 
   @override
   void performLayout() {
     final SliverConstraints constraints = this.constraints;
     // The remaining space in the viewportMainAxisExtent. Can be <= 0 if we have
     // scrolled beyond the extent of the screen.
-    double extent = constraints.viewportMainAxisExtent - constraints.precedingScrollExtent - offset;
+    double extent =
+        constraints.viewportMainAxisExtent - constraints.precedingScrollExtent - 140 - offset;
     // The maxExtent includes any overscrolled area. Can be < 0 if we have
     // overscroll in the opposite direction, away from the end of the list.
     double maxExtent = constraints.remainingPaintExtent - math.min(constraints.overlap, 0.0);
+
+    print(
+        'this.sliverListKey.currentContext: ${this.sliverListKey.currentContext.findRenderObject().paintBounds.bottom}');
 
     if (child != null) {
       double childExtent;

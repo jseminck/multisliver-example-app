@@ -30,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _scrollController = ScrollController();
+  GlobalKey sliverListKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -48,51 +49,39 @@ class _MyHomePageState extends State<MyHomePage> {
         physics: BouncingScrollPhysics(),
         slivers: [
           Header(),
-          MultiSliver(
-            children: [
-              c.CupertinoSliverRefreshControl(
-                refreshTriggerPullDistance: 100,
-                onRefresh: () async {
-                  print("onRefresh!");
-                },
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return Padding(
-                      padding: c.EdgeInsets.all(10),
-                      child: Text(
-                        "SliverList Items",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                    );
-                  },
-                  childCount: 5,
-                ),
-              ),
-              SliverPadding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom,
-                ),
-              ),
-              SliverFillRemainingCustomWidget(
-                offset: Header.collapsedHeight + MediaQuery.of(context).padding.top,
-                child: Container(
-                  color: Colors.deepOrange,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: Text(
-                      "SliverFillRemainingCustomWidget",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                      textAlign: TextAlign.center,
+          c.CupertinoSliverRefreshControl(
+            refreshTriggerPullDistance: 100,
+            onRefresh: () async {
+              print("onRefresh!");
+            },
+          ),
+          SliverList(
+            key: sliverListKey,
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Padding(
+                  padding: c.EdgeInsets.all(10),
+                  child: Text(
+                    "SliverList Items",
+                    style: TextStyle(
+                      fontSize: 15,
                     ),
                   ),
-                ),
-              ),
-            ],
-          )
+                );
+              },
+              childCount: 3,
+            ),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).padding.bottom,
+            ),
+          ),
+          SliverFillRemainingCustomWidget(
+            offset: Header.collapsedHeight + MediaQuery.of(context).padding.top,
+            sliverListKey: sliverListKey,
+            child: Container(color: Colors.orange),
+          ),
         ],
       ),
     );
